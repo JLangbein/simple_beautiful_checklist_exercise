@@ -35,4 +35,9 @@ class MockDatabaseRepository implements DatabaseRepository {
       _items[index] = newItem;
     }
   }
+
+  @override
+  Future<void> initialise() async {
+    await Future.delayed(Duration(seconds: 1));
+  }
 }

@@ -2,10 +2,23 @@ import 'package:flutter/rendering.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:simple_beautiful_checklist_exercise/data/database_repository.dart';
 
+// This is a SINGELTON with FACTORY Constructor
+// Because it is best-practice when dealing with Databases
 class SharedPreferencesRepository extends DatabaseRepository {
   static SharedPreferences? _preferences;
 
-  void initialise() async {
+  // The class' own instance of itself
+  static final SharedPreferencesRepository _instance =
+      SharedPreferencesRepository._internal();
+
+  SharedPreferencesRepository._internal();
+
+  // unnamed factory constructor
+  factory SharedPreferencesRepository() {
+    return _instance;
+  }
+  @override
+  Future<void> initialise() async {
     _preferences = await SharedPreferences.getInstance();
   }
 
